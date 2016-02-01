@@ -1,0 +1,26 @@
+{
+  "name": "cz",
+  "version": "1.0.0",
+  "description": "A simple config utility for nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OmgImAlexis/cz.git"
+  },
+  "keywords": [
+    "config",
+    "utility",
+    "simple",
+    "configuration",
+    "tool"
+  ],
+  "author": "X O <xo@wvvw.me> (https://wvvw.me)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OmgImAlexis/cz/issues"
+  },
+  "homepage": "https://github.com/OmgImAlexis/cz#readme"
+}
