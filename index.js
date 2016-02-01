@@ -10,8 +10,10 @@ module.exports = {
         let file = fs.readFileSync(path, 'utf-8');
         if(file.length){
             let data = JSON.parse(file);
-            for(let prop of data){
-                config[prop] = data[prop];
+            for(let prop in data){
+                if (data.hasOwnProperty(prop)) {
+                    config[prop] = data[prop];
+                }
             }
         }
     },
@@ -24,11 +26,22 @@ module.exports = {
         }
         return saveToDisk;
     },
-    get: function(prop){
-        if(prop){
-            return config[prop];
-        } else {
+    get: function(props){
+        if(!arguments.length){
             return config;
+        } else {
+            let finalResult = [];
+            props = props.indexOf('+') ? props.split('+') : props;
+            for(let topProp of props){
+                let v = config;
+                let x = topProp.split(':');
+                for(let i = 0; i < x.length; i++) {
+                    if(!v){ return null; }
+                    v = v[x[i]];
+                }
+                finalResult.push(v);
+            }
+            return finalResult.join('');
         }
     },
     set: function(prop, value, save) {
@@ -41,13 +54,28 @@ module.exports = {
             if(file.length){
                 let data = JSON.parse(file);
                 let tempConfig = {};
-                for(let prop of data){
-                    tempConfig[prop] = data[prop];
+                for(let prop in data){
+                    if (data.hasOwnProperty(prop)) {
+                        tempConfig[prop] = data[prop];
+                    }
                 }
                 tempConfig[prop] = value;
                 fs.writeFileSync(currentPath, JSON.stringify(tempConfig, null, 4) + '\n', 'utf8');
             }
         }
         config[prop] = value;
+    },
+    joinGets: function(gets, joins){
+        let finalResult = '';
+        let results = gets.map(function(get){
+            return module.exports.get(get);
+        });
+        for(let i = 0; i < gets.length; i++){
+            finalResult+= results[i];
+            if(i+1 !== gets.length){
+                finalResult+= joins[i];
+            }
+        }
+        return finalResult;
     }
 };
