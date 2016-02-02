@@ -45,25 +45,21 @@ module.exports = {
         }
     },
     set: function(prop, value, save) {
-        config[prop] = value;
-        if(!save && saveToDisk){
+        let schema = config; // a moving reference to internal objects within config
+        let pList = prop.split(':');
+        let len = pList.length;
+        for(let i = 0; i < len-1; i++) {
+            let elem = pList[i];
+            if(!schema[elem]){
+                schema[elem] = {};
+            }
+            schema = schema[elem];
+        }
+        schema[pList[len-1]] = value;
+
+        if(save || saveToDisk){
             fs.writeFileSync(currentPath, JSON.stringify(config, null, 4) + '\n', 'utf8');
         }
-        if(save) {
-            let file = fs.readFileSync(currentPath, 'utf-8');
-            if(file.length){
-                let data = JSON.parse(file);
-                let tempConfig = {};
-                for(let prop in data){
-                    if (data.hasOwnProperty(prop)) {
-                        tempConfig[prop] = data[prop];
-                    }
-                }
-                tempConfig[prop] = value;
-                fs.writeFileSync(currentPath, JSON.stringify(tempConfig, null, 4) + '\n', 'utf8');
-            }
-        }
-        config[prop] = value;
     },
     joinGets: function(gets, joins){
         let finalResult = '';
@@ -77,5 +73,11 @@ module.exports = {
             }
         }
         return finalResult;
+    },
+    args: function(save){
+        process.argv.slice(2).forEach(function(val) {
+            val = val.slice(2).split('='); // Gets us ['db:host', 'localhost'] from '--db:host=localhost'
+            module.exports.set(val[0], val[1], save);
+        });
     }
 };
