@@ -45,7 +45,7 @@ module.exports = {
         }
     },
     set: function(prop, value, save) {
-        let schema = config; // a moving reference to internal objects within config
+        let schema = config; // a moving reference to internal objects within obj
         let pList = prop.split(':');
         let len = pList.length;
         for(let i = 0; i < len-1; i++) {
@@ -57,8 +57,32 @@ module.exports = {
         }
         schema[pList[len-1]] = value;
 
-        if(save || saveToDisk){
+        if(!save && saveToDisk){
             fs.writeFileSync(currentPath, JSON.stringify(config, null, 4) + '\n', 'utf8');
+        }
+        if(save) {
+            let file = fs.readFileSync(currentPath, 'utf-8');
+            if(file.length){
+                let data = JSON.parse(file);
+                let tempConfig = {};
+                for(let prop in data){ // jshint ignore:line
+                    if (data.hasOwnProperty(prop)) {
+                        tempConfig[prop] = data[prop];
+                    }
+                }
+                let schema = tempConfig; // a moving reference to internal objects within obj
+                let pList = prop.split(':');
+                let len = pList.length;
+                for(let i = 0; i < len-1; i++) {
+                    let elem = pList[i];
+                    if(!schema[elem]){
+                        schema[elem] = {};
+                    }
+                    schema = schema[elem];
+                }
+                schema[pList[len-1]] = value;
+                fs.writeFileSync(currentPath, JSON.stringify(tempConfig, null, 4) + '\n', 'utf8');
+            }
         }
     },
     joinGets: function(gets, joins){
