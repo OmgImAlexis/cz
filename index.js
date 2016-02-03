@@ -103,5 +103,21 @@ module.exports = {
             val = val.slice(2).split('='); // Gets us ['db:host', 'localhost'] from '--db:host=localhost'
             module.exports.set(val[0], val[1], save);
         });
+    },
+    env: function(){
+        // @TODO 
+    },
+    defaults: function(obj, save){
+        for (let a in obj) {
+            if(obj.hasOwnProperty(a)){
+                config[a] = obj[a];
+            }
+        }
+        if(save){
+            module.exports.save();
+        }
+    },
+    save: function(){
+        fs.writeFileSync(currentPath, JSON.stringify(config, null, 4) + '\n', 'utf8');
     }
 };
