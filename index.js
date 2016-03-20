@@ -26,7 +26,7 @@ module.exports = {
         }
         return saveToDisk;
     },
-    get: function(props){
+    get: function(props, returnObject){
         if(!arguments.length){
             return config;
         } else {
@@ -41,7 +41,11 @@ module.exports = {
                 }
                 finalResult.push(v);
             }
-            return finalResult.join('');
+            if(returnObject){
+                return finalResult;
+            } else {
+                return finalResult.join('');
+            }
         }
     },
     set: function(prop, value, save) {
@@ -105,7 +109,7 @@ module.exports = {
         });
     },
     env: function(){
-        // @TODO 
+        // @TODO
     },
     defaults: function(obj, save){
         for (let a in obj) {
