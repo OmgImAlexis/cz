@@ -8,6 +8,7 @@ let config = {};
 module.exports = {
     load: function(path) {
         let file = fs.readFileSync(path, 'utf-8');
+        currentPath = path;
         if(file.length){
             let data = JSON.parse(file);
             for(let prop in data){
