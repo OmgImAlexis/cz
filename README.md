@@ -1,5 +1,5 @@
 # cz
-[![Coverage Status](https://coveralls.io/repos/github/OmgImAlexis/cz/badge.svg?branch=master)](https://coveralls.io/github/OmgImAlexis/cz?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/OmgImAlexis/cz/badge.svg?branch=master)](https://coveralls.io/github/OmgImAlexis/cz?branch=master) [![Build Status](https://travis-ci.org/OmgImAlexis/cz.svg?branch=master)](https://travis-ci.org/OmgImAlexis/cz)
 A simple config utility for nodejs
 
 &nbsp;
