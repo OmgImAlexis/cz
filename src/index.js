@@ -23,10 +23,11 @@ class Cz {
     }
 
     get(prop) {
+        const wholeObj = Object.assign(weakToJSON(_defaults), weakToJSON(_config));
         if (arguments.length === 0) {
-            return Object.assign(weakToJSON(_defaults), weakToJSON(_config));
+            return wholeObj;
         }
-        return lodashGet(_config, prop.replace(':', '.'));
+        return lodashGet(wholeObj, prop.replace(':', '.'));
     }
 
     set(prop, value) {
