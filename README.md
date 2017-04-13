@@ -1,12 +1,21 @@
 # cz
-[![Coverage Status](https://coveralls.io/repos/github/OmgImAlexis/cz/badge.svg?branch=master)](https://coveralls.io/github/OmgImAlexis/cz?branch=master) [![Build Status](https://travis-ci.org/OmgImAlexis/cz.svg?branch=master)](https://travis-ci.org/OmgImAlexis/cz)
-A simple config utility for nodejs
 
-&nbsp;
-&nbsp;
+A simple config utility for Nodejs
 
+## Table of contents
 
-#### Example
+- [Quick start](#quick-start)
+- [Status](#status)
+<!-- - [What's included](#whats-included)
+- [Bugs and feature requests](#bugs-and-feature-requests)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
+- [Community](#community)
+- [Versioning](#versioning)
+- [Creators](#creators)
+- [Copyright and license](#copyright-and-license) -->
+
+## Quick start
 
 ````js
 const path = require('path');
@@ -31,7 +40,14 @@ console.log('mongodb://' + config.get('db:username') + ':' + config.get('db:pass
 console.log('mongodb://' + config.joinGets(['db:username', 'db:password', 'db:host', 'db:port', 'db:collection'], [':', '@', ':', '/']));
 ````
 
-### Hierarchical configuration
+## Status
+
+[![Coverage Status](https://coveralls.io/repos/github/OmgImAlexis/cz/badge.svg?branch=master)](https://coveralls.io/github/OmgImAlexis/cz?branch=master)
+[![Build Status](https://travis-ci.org/OmgImAlexis/cz.svg?branch=master)](https://travis-ci.org/OmgImAlexis/cz)
+[![GitHub issues](https://img.shields.io/github/issues/omgimalexis/cz.svg)](https://github.com/omgimalexis/cz/issues)
+[![npm](https://img.shields.io/npm/v/cz.svg)](https://www.npmjs.com/package/cz)
+
+## Documentation
 
 Cz sets `defaults()` as the most bottom object and applies all changes to the config object on top of that meaning anywhere in your app you can use `config.defaults({})` to override the default values.
 
