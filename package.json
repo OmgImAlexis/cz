@@ -1,6 +1,6 @@
 {
     "name": "cz",
-    "version": "1.6.2",
+    "version": "1.6.3",
     "description": "A simple config utility for nodejs",
     "main": "lib/index.js",
     "scripts": {
