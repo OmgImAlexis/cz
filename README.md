@@ -1,4 +1,5 @@
 # cz
+[![Coverage Status](https://coveralls.io/repos/github/OmgImAlexis/cz/badge.svg?branch=master)](https://coveralls.io/github/OmgImAlexis/cz?branch=master)
 A simple config utility for nodejs
 
 &nbsp;
