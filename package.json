@@ -4,8 +4,8 @@
     "description": "A simple config utility for nodejs",
     "main": "lib/index.js",
     "scripts": {
-        "test": "xo && echo '{}' > ./test/config.json && npm run coverage",
-        "coverage": "cross-env NODE_ENV=test nyc mocha ./test/**/* --arg:test=arg_test_value && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage && rm -rf ./nyc_output",
+        "test": "xo",
+        "coverage": "echo '{}' > ./test/config.json && cross-env NODE_ENV=test nyc mocha ./test/**/* --arg:test=arg_test_value && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage && rm -rf ./nyc_output",
         "build": "babel -d lib/ src/",
         "prepublish": "npm run build"
     },
