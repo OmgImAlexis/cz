@@ -8,7 +8,7 @@ A simple config utility for nodejs
 #### Example
 
 ````js
-var config = require('./index.js');
+var config = require('cz');
 var path = require('path');
 config.load(path.normalize(__dirname + '/config.json')); // This loads the config file
 
