@@ -1,5 +1,6 @@
 'use strict';
 
+import fs from 'fs';
 import path from 'path';
 
 import {
@@ -82,8 +83,12 @@ describe('save config to file', () => {
 
     it(`test should be value`, () => expect(config.get('test')).to.equal('value'));
     it(`config.json should contain {"test": "value"}`, () => {
-        const configJson = require('./config.json');
-        expect(configJson.test).to.equal('value');
+        fs.readFile(path.join(__dirname, './config.json'), 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+            expect(JSON.parse(data).test).to.equal('value');
+        });
     });
 });
 
