@@ -4,9 +4,10 @@
     "description": "A simple config utility for nodejs",
     "main": "lib/index.js",
     "scripts": {
-        "test": "xo && npm run coverage",
+        "test": "xo && npm run build && npm run coverage",
         "gen_test_files": "echo '{}' > ./test/config.json && echo '' > ./test/emptyConfig.json",
-        "coverage": "npm run gen_test_files && npm run mocha && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage && rm -rf ./nyc_output",
+        "coverage": "npm run gen_test_files && npm run mocha && if-env CI=true && npm run push-coverage || echo ''",
+        "push-coverage": "cat ./coverage/lcov.info | coveralls && rm -rf ./coverage && rm -rf ./nyc_output",
         "mocha": "cross-env NODE_ENV=test nyc mocha ./test/test.js --arg:test=arg_test_value",
         "build": "babel -d lib/ src/",
         "prepublish": "npm run build"

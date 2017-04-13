@@ -48,10 +48,8 @@ class Cz {
         // We use 2 as an empty file with a new line would return 1
         if (file.length >= 2) {
             const data = JSON.parse(file);
-            for (const prop in data) {
-                if ({}.hasOwnProperty.call(data, prop)) {
-                    this._config[prop] = data[prop];
-                }
+            for (const prop of Object.keys(data)) {
+                this._config[prop] = data[prop];
             }
         }
     }
