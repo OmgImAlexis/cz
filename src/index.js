@@ -55,7 +55,11 @@ class Cz {
     }
 
     save(newPath) {
-        fs.writeFileSync(path.normalize(newPath || this._path), JSON.stringify(this._config, null, 4) + '\n', 'utf8');
+        if (arguments.length === 0 && this._path === null) {
+            throw new Error('No path provided.');
+        } else {
+            fs.writeFileSync(path.normalize(newPath || this._path), JSON.stringify(this._config, null, 4) + '\n', 'utf8');
+        }
     }
 
     args() {

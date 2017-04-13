@@ -62,3 +62,5 @@ config.json
 
 # Tests/Coverage
 .nyc_output
+test/**/*
+!test/test.js

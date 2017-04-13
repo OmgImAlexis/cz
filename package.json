@@ -1,11 +1,11 @@
 {
     "name": "cz",
-    "version": "1.7.7",
+    "version": "1.7.8",
     "description": "A simple config utility for nodejs",
     "main": "lib/index.js",
     "scripts": {
         "test": "xo && npm run build && npm run coverage",
-        "gen_test_files": "echo '{}' > ./test/config.json && echo '' > ./test/emptyConfig.json",
+        "gen_test_files": "echo '{}' > ./test/config.json && echo '' > ./test/emptyConfig.json && echo '{}' > ./test/anotherEmptyConfig.json",
         "coverage": "npm run gen_test_files && npm run mocha && if-env CI=true && npm run push-coverage || echo ''",
         "push-coverage": "cat ./coverage/lcov.info | coveralls && rm -rf ./coverage && rm -rf ./nyc_output",
         "mocha": "cross-env NODE_ENV=test nyc mocha ./test/test.js --arg:test=arg_test_value",

@@ -12,6 +12,8 @@ import Cz from '../src/index';
 const config = new Cz();
 const configTwo = new Cz();
 const emptyConfig = new Cz();
+const anotherEmptyConfig = new Cz();
+const theLastConfig = new Cz();
 
 describe('set config using string param and string value', () => {
     before(() => {
@@ -75,7 +77,7 @@ describe('reset shouldn\'t effect defaults', () => {
     });
 });
 
-describe('save config to file', () => {
+describe('save config to specified file', () => {
     before(() => {
         config.reset();
         config.set('test', 'value');
@@ -93,7 +95,36 @@ describe('save config to file', () => {
     });
 });
 
-describe('load config from file', () => {
+describe('save config to already loaded file', () => {
+    before(() => {
+        const configPath = path.join(__dirname, './anotherEmptyConfig.json');
+        anotherEmptyConfig.load(configPath);
+        anotherEmptyConfig.set('test', 'value');
+        anotherEmptyConfig.save();
+    });
+
+    it(`test should be value`, () => expect(anotherEmptyConfig.get('test')).to.equal('value'));
+    it(`anotherEmptyConfig.json should contain {"test": "value"}`, () => {
+        fs.readFile(path.join(__dirname, './anotherEmptyConfig.json'), 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+            expect(JSON.parse(data).test).to.equal('value');
+        });
+    });
+});
+
+describe('save config without providing path', () => {
+    before(() => {
+        theLastConfig.set('test', 'value');
+    });
+
+    it(`theLastConfig.save() should throw an error since it has no path`, () => {
+        expect(() => theLastConfig.save()).to.throw('No path provided.');
+    });
+});
+
+describe('load config from specified file', () => {
     before(() => {
         config.reset();
         config.load(path.join(__dirname, './config.json'));
