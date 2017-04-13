@@ -6,7 +6,7 @@ import {
     expect
 } from 'chai';
 
-import Cz from '../lib/index';
+import Cz from '../src/index';
 
 const config = new Cz();
 const configTwo = new Cz();
@@ -106,4 +106,21 @@ describe('new Cz() should create a seperate config store', () => {
     });
 
     it(`config.get() should be different to newConfig.get()`, () => expect(JSON.stringify(config.get())).to.not.equal(JSON.stringify(configTwo.get())));
+});
+
+describe('joinGets should join multiple get params', () => {
+    before(() => {
+        config.reset();
+        config.defaults({});
+        config.set({
+            db: {
+                host: 'localhost',
+                port: 3000
+            }
+        });
+    });
+
+    it(`config.joinGets(['db:host', 'db:port'], [':']) should return localhost:3000`, () => {
+        expect(config.joinGets(['db:host', 'db:port'], [':'])).to.equal('localhost:3000');
+    });
 });

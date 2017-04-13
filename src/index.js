@@ -70,7 +70,8 @@ class Cz {
     }
 
     joinGets(gets, joins) {
-        const results = gets.map(function(get) {
+        // @TODO: Add support for a single join param instead of just array
+        const results = gets.map(get => {
             return this.get(get);
         });
         let finalResult = '';
