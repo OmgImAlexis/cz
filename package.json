@@ -4,8 +4,8 @@
     "description": "A simple config utility for nodejs",
     "main": "lib/index.js",
     "scripts": {
-        "test": "xo && npm run build && mocha --compilers js:babel-core/register ./test/**/* --arg:test=arg_test_value",
-        "coverage": "cross-env NODE_ENV=test nyc mocha ./test/**/* --arg:test=arg_test_value",
+        "test": "xo && npm run coverage",
+        "coverage": "cross-env NODE_ENV=test nyc mocha ./test/**/* --arg:test=arg_test_value && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage && rm -rf ./nyc_output",
         "build": "babel -d lib/ src/",
         "prepublish": "npm run build"
     },
@@ -37,6 +37,7 @@
         "babel-preset-stage-2": "^6.24.1",
         "babel-register": "^6.24.1",
         "chai": "^3.5.0",
+        "coveralls": "^2.13.0",
         "cross-env": "^4.0.0",
         "istanbul": "^0.4.5",
         "mocha": "^3.2.0",
