@@ -11,6 +11,7 @@ import Cz from '../src/index';
 
 const config = new Cz();
 const configTwo = new Cz();
+const emptyConfig = new Cz();
 
 describe('set config using string param and string value', () => {
     before(() => {
@@ -99,6 +100,14 @@ describe('load config from file', () => {
     });
 
     it(`config.get() should return {test: 'value'}`, () => expect(JSON.stringify(config.get())).to.equal(JSON.stringify({test: 'value'})));
+});
+
+describe('attempt to load empty config file', () => {
+    before(() => {
+        emptyConfig.load(path.join(__dirname, './emptyConfig.json'));
+    });
+
+    it(`config.get() should return {}`, () => expect(JSON.stringify(emptyConfig.get())).to.equal(JSON.stringify({})));
 });
 
 describe('new Cz() should create a seperate config store', () => {

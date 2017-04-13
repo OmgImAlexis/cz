@@ -45,7 +45,8 @@ class Cz {
     load(newPath) {
         const file = fs.readFileSync(newPath, 'utf-8');
         this._path = newPath;
-        if (file.length >= 1) {
+        // We use 2 as an empty file with a new line would return 1
+        if (file.length >= 2) {
             const data = JSON.parse(file);
             for (const prop in data) {
                 if ({}.hasOwnProperty.call(data, prop)) {
