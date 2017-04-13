@@ -7,9 +7,9 @@ A simple config utility for Nodejs
 - [Quick start](#quick-start)
 - [Status](#status)
 <!-- - [What's included](#whats-included)
-- [Bugs and feature requests](#bugs-and-feature-requests)
+- [Bugs and feature requests](#bugs-and-feature-requests) -->
 - [Documentation](#documentation)
-- [Contributing](#contributing)
+<!-- - [Contributing](#contributing)
 - [Community](#community)
 - [Versioning](#versioning)
 - [Creators](#creators)
@@ -18,11 +18,17 @@ A simple config utility for Nodejs
 ## Quick start
 
 ````js
-const path = require('path');
-const config = require('cz');
+const Cz = require('cz');
+const config = new Cz();
 
-// Loads the config file into cz
+// Loads the config file into Cz
 config.load('./config.json');
+
+// Sets Cz's default value for "port" to 4000
+// If the value is unset using config.set('port', null) then Cz will fall back to 4000
+config.defaults({
+    port: 4000
+});
 
 // Sets Cz to { random: 'random value' }
 config.set('random', 'random value');
