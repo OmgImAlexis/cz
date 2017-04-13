@@ -12,18 +12,15 @@ import {
     weakToJSON
 } from './utils';
 
-let _config = new WeakMap();
-let _defaults = new WeakMap();
-let currentPath = null;
-
 class Cz {
     constructor() {
-        this[_config] = {};
-        this[_defaults] = {};
+        this._config = new WeakMap();
+        this._defaults = new WeakMap();
+        this._path = null;
     }
 
     get(prop) {
-        const wholeObj = Object.assign(weakToJSON(_defaults), weakToJSON(_config));
+        const wholeObj = Object.assign(weakToJSON(this._defaults), weakToJSON(this._config));
         if (arguments.length === 0) {
             return wholeObj;
         }
@@ -34,32 +31,32 @@ class Cz {
         // Handles if prop is key or obj
         if (value === undefined) {
             for (const key of Object.keys(prop)) {
-                lodashSet(_config, key, prop[key]);
+                lodashSet(this._config, key, prop[key]);
             }
         } else {
-            lodashSet(_config, prop.replace(':', '.'), value);
+            lodashSet(this._config, prop.replace(':', '.'), value);
         }
     }
 
     defaults(obj) {
-        _defaults = obj;
+        this._defaults = obj;
     }
 
     load(newPath) {
         const file = fs.readFileSync(newPath, 'utf-8');
-        currentPath = newPath;
+        this._path = newPath;
         if (file.length >= 1) {
             const data = JSON.parse(file);
             for (const prop in data) {
                 if ({}.hasOwnProperty.call(data, prop)) {
-                    _config[prop] = data[prop];
+                    this._config[prop] = data[prop];
                 }
             }
         }
     }
 
     save(newPath) {
-        fs.writeFileSync(path.normalize(newPath || currentPath), JSON.stringify(_config, null, 4) + '\n', 'utf8');
+        fs.writeFileSync(path.normalize(newPath || this._path), JSON.stringify(this._config, null, 4) + '\n', 'utf8');
     }
 
     args(save) {
@@ -84,7 +81,7 @@ class Cz {
     }
 
     reset() {
-        _config = new WeakMap();
+        this._config = new WeakMap();
     }
 }
 

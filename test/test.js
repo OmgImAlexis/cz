@@ -9,6 +9,7 @@ import {
 import Cz from '../lib/index';
 
 const config = new Cz();
+const configTwo = new Cz();
 
 describe('set config using string param and string value', () => {
     before(() => {
@@ -86,4 +87,16 @@ describe('load config from file', () => {
     });
 
     it(`config.get() should return {test: 'value'}`, () => expect(JSON.stringify(config.get())).to.equal(JSON.stringify({test: 'value'})));
+});
+
+describe('new Cz() should create a seperate config store', () => {
+    before(() => {
+        config.reset();
+        config.defaults({
+            test: 'value'
+        });
+        configTwo.set('anotherTest', 'value');
+    });
+
+    it(`config.get() should be different to newConfig.get()`, () => expect(JSON.stringify(config.get())).to.not.equal(JSON.stringify(configTwo.get())));
 });
