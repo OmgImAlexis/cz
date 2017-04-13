@@ -60,9 +60,12 @@ class Cz {
     }
 
     args() {
-        process.argv.slice(2).forEach(function(val) {
-            val = val.slice(2).split('='); // Gets us ['db:host', 'localhost'] from '--db:host=localhost'
-            this.set(val[0], val[1]);
+        const args = process.argv.filter(arg => {
+            return arg.startsWith('--') && arg.includes('=');
+        });
+        args.forEach(arg => {
+            arg = arg.slice(2).split('='); // Gets us ['db:host', 'localhost'] from '--db:host=localhost'
+            this.set(arg[0], arg[1]);
         });
     }
 

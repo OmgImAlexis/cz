@@ -47,6 +47,14 @@ describe('set config using object param and no value', () => {
     it(`mongodb:port should be 27017`, () => expect(config.get('mongodb:port')).to.equal('27017'));
 });
 
+describe('set config using args', () => {
+    before(() => {
+        config.args();
+    });
+
+    it(`arg:test should be args_test_value`, () => expect(config.get('arg:test')).to.equal('arg_test_value'));
+});
+
 describe('reset shouldn\'t effect defaults', () => {
     before(() => {
         config.reset();
@@ -56,7 +64,6 @@ describe('reset shouldn\'t effect defaults', () => {
         });
         config.set('test', 'another value');
         config.reset();
-        console.log(config.get('test'));
     });
 
     it(`test should be value`, () => expect(config.get('test')).to.equal('value'));
