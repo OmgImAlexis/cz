@@ -43,13 +43,19 @@ class Cz {
     }
 
     load(newPath) {
-        const file = fs.readFileSync(newPath, 'utf-8');
-        this._path = newPath;
-        // We use 2 as an empty file with a new line would return 1
-        if (file.length >= 2) {
-            const data = JSON.parse(file);
-            for (const prop of Object.keys(data)) {
-                this._config[prop] = data[prop];
+        try {
+            const file = fs.readFileSync(newPath, 'utf-8');
+            this._path = newPath;
+            // We use 2 as an empty file with a new line would return 1
+            if (file.length >= 2) {
+                const data = JSON.parse(file);
+                for (const prop of Object.keys(data)) {
+                    this._config[prop] = data[prop];
+                }
+            }
+        } catch (err) {
+            if (err.code !== 'ENOENT') {
+                throw err;
             }
         }
     }
