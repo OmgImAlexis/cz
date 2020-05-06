@@ -1,79 +1,82 @@
 {
-    "name": "cz",
-    "version": "1.8.2",
-    "description": "A simple config utility for nodejs",
-    "main": "lib/index.js",
-    "scripts": {
-        "test": "xo && npm run build && npm run coverage",
-        "gen_test_files": "echo '{}' > ./test/config.json && echo '' > ./test/emptyConfig.json && echo '{}' > ./test/anotherEmptyConfig.json",
-        "coverage": "npm run gen_test_files && npm run mocha && if-env CI=true && npm run push-coverage || echo ''",
-        "push-coverage": "cat ./coverage/lcov.info | coveralls && rm -rf ./coverage && rm -rf ./nyc_output",
-        "mocha": "cross-env NODE_ENV=test nyc mocha ./test/test.js --arg:test=arg_test_value",
-        "build": "babel -d lib/ src/",
-        "prepublish": "npm run build"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/OmgImAlexis/cz.git"
-    },
-    "keywords": [
-        "config",
-        "utility",
-        "simple",
-        "configuration",
-        "tool"
+  "name": "cz",
+  "version": "1.8.2",
+  "description": "A simple config utility for nodejs",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "xo && npm run build && npm run coverage",
+    "gen_test_files": "echo '{}' > ./test/config.json && echo '' > ./test/emptyConfig.json && echo '{}' > ./test/anotherEmptyConfig.json",
+    "coverage": "npm run gen_test_files && npm run mocha && if-env CI=true && npm run push-coverage || echo ''",
+    "push-coverage": "cat ./coverage/lcov.info | coveralls && rm -rf ./coverage && rm -rf ./nyc_output",
+    "mocha": "cross-env NODE_ENV=test nyc mocha ./test/test.js --arg:test=arg_test_value",
+    "build": "babel -d lib/ src/",
+    "prepublish": "yarn run snyk-protect && npm run build",
+    "snyk-protect": "snyk protect"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OmgImAlexis/cz.git"
+  },
+  "keywords": [
+    "config",
+    "utility",
+    "simple",
+    "configuration",
+    "tool"
+  ],
+  "author": "X O <xo@wvvw.me> (https://wvvw.me)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OmgImAlexis/cz/issues"
+  },
+  "homepage": "https://github.com/OmgImAlexis/cz#readme",
+  "dependencies": {
+    "if-env": "^1.0.0",
+    "lodash": "^4.17.4",
+    "snyk": "^1.319.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-plugin-istanbul": "^4.1.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "chai": "^3.5.0",
+    "coveralls": "^2.13.0",
+    "cross-env": "^4.0.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "nyc": "^10.2.0",
+    "xo": "^0.18.1"
+  },
+  "xo": {
+    "space": 4,
+    "ignores": [
+      "lib/**/*"
     ],
-    "author": "X O <xo@wvvw.me> (https://wvvw.me)",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/OmgImAlexis/cz/issues"
+    "rules": {
+      "space-before-function-paren": [
+        "error",
+        "never"
+      ]
     },
-    "homepage": "https://github.com/OmgImAlexis/cz#readme",
-    "dependencies": {
-        "if-env": "^1.0.0",
-        "lodash": "^4.17.4"
-    },
-    "devDependencies": {
-        "babel-cli": "^6.24.1",
-        "babel-core": "^6.24.1",
-        "babel-plugin-istanbul": "^4.1.1",
-        "babel-preset-es2015": "^6.24.1",
-        "babel-preset-stage-2": "^6.24.1",
-        "babel-register": "^6.24.1",
-        "chai": "^3.5.0",
-        "coveralls": "^2.13.0",
-        "cross-env": "^4.0.0",
-        "istanbul": "^0.4.5",
-        "mocha": "^3.2.0",
-        "nyc": "^10.2.0",
-        "xo": "^0.18.1"
-    },
-    "xo": {
-        "space": 4,
-        "ignores": [
-            "lib/**/*"
-        ],
-        "rules": {
-            "space-before-function-paren": [
-                "error",
-                "never"
-            ]
-        },
-        "envs": [
-            "node",
-            "es6",
-            "mocha"
-        ]
-    },
-    "nyc": {
-        "require": [
-            "babel-register"
-        ],
-        "reporter": [
-            "lcov",
-            "text"
-        ],
-        "sourceMap": false,
-        "instrument": false
-    }
+    "envs": [
+      "node",
+      "es6",
+      "mocha"
+    ]
+  },
+  "nyc": {
+    "require": [
+      "babel-register"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
+  "snyk": true
 }
