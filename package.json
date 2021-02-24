@@ -31,7 +31,7 @@
     "homepage": "https://github.com/OmgImAlexis/cz#readme",
     "dependencies": {
         "if-env": "^1.0.0",
-        "lodash": "^4.17.4"
+        "lodash": "^4.17.21"
     },
     "devDependencies": {
         "babel-cli": "^6.24.1",
